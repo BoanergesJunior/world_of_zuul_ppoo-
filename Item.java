@@ -29,9 +29,7 @@ public class Item {
 
     c.setItem(this);
 
-    System.out.println(sorteio);
     return sorteio;
-
   }
 
   public int setLocal(HashMap<Integer, Comodo> comodos) {

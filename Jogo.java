@@ -37,14 +37,24 @@ public class Jogo {
     public Jogo() {
         Random r = new Random();
         analisador = new Analisador();
-        tentativas = r.nextInt(31) + 20;
+        tentativas = r.nextInt(20);
         comodos = new HashMap<Integer, Comodo>();
         chave = new Chave();
-        dica1 = new Dica("O tesouro não está no(a)");
-        dica2 = new Dica("O tesouro está próximo ao(à)");
+        dica1 = new Dica("A chave não está no(a)");
+        dica2 = new Dica("A chave não está no(a)");
         interfaceGrafica = new Tela(this);
         criarComodos();
         chave.setLocal(comodos);
+
+        dica1.setLocal(comodos);
+        dica1.setDescricao(comodos);
+
+        dica2.setLocal(comodos);
+        dica2.setDescricao(comodos);
+
+        System.out.println("Chave: " + chave.getLocal());
+        System.out.println("Dica 1: " + dica1.getLocal());
+        System.out.println("Dica 2: " + dica2.getLocal());
 
         interfaceGrafica.exibir();
     }
@@ -135,13 +145,16 @@ public class Jogo {
         // comandos e os executamos ate o jogo terminar.
 
         boolean terminado = false;
-        while (!terminado) {
+        while (!terminado && temTentativas()) {
 
             JLabel quantidadeTentativas = interfaceGrafica.getQuantidadeTentativas();
             quantidadeTentativas.setText(String.valueOf(tentativas));
 
             Comando comando = analisador.pegarComando();
             terminado = processarComando(comando);
+            if (!temTentativas()) {
+                System.out.println("Tentativas esgotadas");
+            }
         }
         System.out.println("Obrigado por jogar. Ate mais!");
     }
@@ -164,14 +177,14 @@ public class Jogo {
      * encontra o jogador
      */
     private void imprimeLocalizacaoAtual() {
-        System.out.println("Voce esta" + comodoAtual.getDescricao());
+        System.out.println(comodoAtual.getDescricao());
         System.out.println("Saidas: ");
         System.out.print(comodoAtual.getSaidas());
         System.out.println();
         System.out.println(tentativas);
-        if (chave.getEncontrado()) {
-            System.out.println(chave.getVidaUtil());
-        }
+        // if (chave.getEncontrado()) {
+        // System.out.println(chave.getVidaUtil());
+        // }
     }
 
     /**
@@ -194,24 +207,19 @@ public class Jogo {
         if (proximoComodo == null) {
             System.out.println("Não há passagem!");
         } else {
-            if (chave.getEncontrado()) {
-                System.out.println("Deseja usar a chave mestra (sim/nao) ?");
-                Scanner ent = new Scanner(System.in);
-                String resp = ent.nextLine();
-                if (resp.equals("sim")) {
-                    comodoAtual = proximoComodo;
-                    chave.usarChave();
-                } else {
-                    irDireto(proximoComodo);
-                }
-                ent.close();
-            } else {
+            if (proximoComodo.getNome().equals("Fora") && chave.getEncontrado()) {
+                System.out.println("Parabéns você achou a saída!!");
+                sair();
+            } else if (chave.getEncontrado() || !proximoComodo.getNome().equals("Fora"))
                 irDireto(proximoComodo);
+            else {
+                --tentativas;
+                System.out.println("Voce não pode sair");
             }
-
-            imprimeLocalizacaoAtual();
-            verificaItem();
         }
+
+        imprimeLocalizacaoAtual();
+        verificaItem();
     }
 
     /**
@@ -236,9 +244,7 @@ public class Jogo {
         } else if (palavraDeComando.equals("observar")) {
             observar();
         } else if (palavraDeComando.equals("sair")) {
-            querSair = sair(comando);
-        } else if (palavraDeComando.equals("usar chave")) {
-            querSair = explodir(comando);
+            querSair = sair();
         }
 
         return querSair;
@@ -261,7 +267,7 @@ public class Jogo {
     private void verificaItem() {
         if (comodoAtual.getItem() != null && !comodoAtual.getItem().getEncontrado()) {
             if (comodoAtual.getItem() instanceof Chave) {
-                System.out.println("Parabens voce achou uma chave");
+                System.out.println("Parabens voce achou uma chave, agora vá até a saída");
                 interfaceGrafica.setChave(chave.getVidaUtil());
             } else if (comodoAtual.getItem() instanceof Dica) {
                 if (comodoAtual.getItem() == dica1) {
@@ -270,25 +276,8 @@ public class Jogo {
                     System.out.println(dica2.getDescricao());
                 }
             }
-            (comodoAtual.getItem()).setEncontrado(true);
+            comodoAtual.getItem().setEncontrado(true);
         }
-    }
-
-    private boolean explodir(Comando comando) {
-        // if (comando.temSegundaPalavra()) {
-        // System.out.println("Explodir o que?");
-        // return false;
-        // } else {
-        // if (comodoAtual.getItem() != null && comodoAtual.getItem() instanceof
-        // Tesouro) {
-        // tesouro.setEncontrado(true);
-        // System.out.println(tesouro.getMensagem());
-        // } else {
-        // System.out.println("Game Over: tesouro não encontrado");
-        // }
-        // }
-        // return true; // sinaliza a explosao
-        return true;
     }
 
     private void observar() {
@@ -311,15 +300,10 @@ public class Jogo {
      * "Sair" foi digitado. Verifica o resto do comando pra ver se nos queremos
      * realmente sair do jogo.
      * 
-     * @return true, se este comando sai do jogo, false, caso contrario
+     * @return true, se este comando sai do jogo
      */
-    private boolean sair(Comando comando) {
-        if (comando.temSegundaPalavra()) {
-            System.out.println("Sair o que?");
-            return false;
-        } else {
-            return true; // sinaliza que nos queremos sair
-        }
+    private boolean sair() {
+        return true;
     }
 
     public int getTentativas() {
