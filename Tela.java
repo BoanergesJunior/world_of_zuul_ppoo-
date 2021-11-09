@@ -19,6 +19,13 @@ public class Tela {
 
   private JLabel textoBemVindo;
   private JLabel textoAjuda;
+  private JTextField entradaTexto;
+  private JLabel achouChave;
+  private JLabel textoSaida;
+
+  private JLabel salaAtual;
+  private JLabel saidas;
+  private JLabel extra;
 
   public Tela(Jogo jogo) {
 
@@ -30,13 +37,21 @@ public class Tela {
     textoTentativas = new JLabel("<html><h2>Número de Tentativas Restantes:</h2></html>");
 
     textoDicasEncontradas = new JLabel("<html><h2>Dicas encontradas:</h2></html>");
-    dica1 = new JLabel("<html><br><strong><h3>O tesouro não está no escritório</h3></strong><br></html>");
-    dica2 = new JLabel("<html><br><strong><h3>O tesouro não está no quarto 1</h3></strong><br></html>");
+    dica1 = new JLabel("<html><br><strong><h3>Dica 1 ainda não foi encontrada</h3></strong><br></html>");
+    dica2 = new JLabel("<html><br><strong><h3>Dica 1 ainda não foi encontrada</h3></strong><br></html>");
 
     textoBemVindo = new JLabel("Bem-Vindo ao escritório");
 
     textoAjuda = new JLabel("Digite 'ajuda' se você precisar de ajuda.");
+    achouChave = new JLabel("<html><h2>Não encontrou a chave!</h2></html>");
 
+    salaAtual = new JLabel("Você está no(a) comodo: Sala 1");
+    textoSaida = new JLabel("Saidas:");
+    saidas = new JLabel("Sala2, Corredor");
+
+    extra = new JLabel("Suas palavras de comando sao: ir, sair, ajuda");
+
+    entradaTexto = new JTextField();
     montarFramePrincipal();
     telaPrincipal.pack();
   }
@@ -61,6 +76,7 @@ public class Tela {
     // Setando formato de texto quantidades tentativas
     quantidadeTentativas.setBorder(new EmptyBorder(0, 10, 0, 0));
     campoEsquerdoSuperior.add(quantidadeTentativas);
+    campoEsquerdoSuperior.add(achouChave);
 
     /* Configurando Lado central Superior */
     JPanel campoCentralSuperior = new JPanel();
@@ -90,6 +106,11 @@ public class Tela {
     campoInferior.setBackground(Color.WHITE);
     campoInferior.add(textoBemVindo);
     campoInferior.add(textoAjuda);
+    campoInferior.add(salaAtual);
+    campoInferior.add(textoSaida);
+    campoInferior.add(saidas);
+    campoInferior.add(extra);
+    campoInferior.add(entradaTexto);
 
     telaPrincipal.add(campoEsquerdoSuperior, BorderLayout.WEST);
     telaPrincipal.add(campoCentralSuperior, BorderLayout.CENTER);
@@ -111,7 +132,63 @@ public class Tela {
     return quantidadeTentativas;
   }
 
+  public void setSalaAtual(String sala) {
+    this.salaAtual.setText(sala);
+  }
+
+  public void setSaidas(String saida) {
+    this.saidas.setText(saida);
+  }
+
+  public void setExtra(String extra) {
+    this.extra.setText(extra);
+  }
+
+  public void setAchouChave(String text) {
+    this.achouChave.setText(text);
+  }
+
+  public void setDica1(String text) {
+    this.dica1.setText(text);
+  }
+
+  public void setDica2(String text) {
+    this.dica2.setText(text);
+  }
+
   public void setChave(int quant) {
 
+  }
+
+  public void travarEntrada() {
+    entradaTexto.setEditable(false);
+  }
+
+  public void limparEntrada() {
+    entradaTexto.setText("");
+  }
+
+  public String getText() {
+    return entradaTexto.getText();
+  }
+
+  public void gameOver() {
+    textoBemVindo.setText("Game Over!");
+    textoAjuda.setText("Tentativas esgotadas");
+    salaAtual.setText("-");
+    textoSaida.setText("-");
+    saidas.setText("-");
+    extra.setText("Obrigado por jogar. Ate mais!");
+    achouChave.setText("<html><h2>Game Over! Acabaram as tentativas</h2></html>");
+    quantidadeTentativas.setText("0");
+  }
+
+  public void vitoria() {
+    textoBemVindo.setText("Vitória!");
+    textoAjuda.setText("Você encontrou a saída");
+    salaAtual.setText("-");
+    textoSaida.setText("-");
+    saidas.setText("-");
+    extra.setText("Obrigado por jogar. Ate mais!");
   }
 }
