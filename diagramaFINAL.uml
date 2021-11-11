@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>src</OriginalElement>
+  <nodes>
+    <node x="1034.4733528134932" y="1692.23412631853">src.Programa</node>
+    <node x="1101.1942169010997" y="-406.54712558679546">src.Item</node>
+    <node x="-419.45274824543117" y="706.0">src.Analisador</node>
+    <node x="82.5" y="-340.54712558679546">src.Comando</node>
+    <node x="108.77300772964264" y="1991.1944025717273">src.Dica</node>
+    <node x="401.02998316391245" y="452.24835484513005">src.Tela</node>
+    <node x="505.1422513429517" y="-406.54712558679546">src.Comodo</node>
+    <node x="1167.512714573256" y="732.3614438873639">src.Chave</node>
+    <node x="1542.8453131119104" y="-386.6609672123856">src..idea</node>
+    <node x="-401.1024251268153" y="-318.54712558679546">src.PalavrasComando</node>
+    <node x="373.52998316391245" y="1291.1122260654479">src.Jogo</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.Jogo" target="src.Dica" relationship="TO_ONE">
+      <point x="0.0" y="-304.5" />
+      <point x="503.02998316391245" y="1888.8135593220345" />
+      <point x="463.3091624636405" y="1888.8135593220345" />
+      <point x="463.3091624636405" y="2053.65146471862" />
+      <point x="208.52300772964264" y="2053.65146471862" />
+      <point x="33.25" y="39.5" />
+    </edge>
+    <edge source="src.Jogo" target="src.Analisador" relationship="TO_ONE">
+      <point x="0.0" y="-304.5" />
+      <point x="503.02998316391245" y="1835.895486424853" />
+      <point x="-225.95274824543117" y="1835.895486424853" />
+      <point x="64.5" y="51.0" />
+    </edge>
+    <edge source="src.Programa" target="src.Jogo" relationship="CREATE">
+      <point x="0.0" y="-39.5" />
+      <point x="1108.9733528134932" y="1723.0" />
+      <point x="503.02998316391245" y="1723.0" />
+      <point x="0.0" y="304.5" />
+    </edge>
+    <edge source="src.Chave" target="src.Item" relationship="GENERALIZATION">
+      <point x="-93.0" y="-39.5" />
+      <point x="1260.512714573256" y="-260.54712558679546" />
+      <point x="-68.75" y="73.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Comodo" relationship="CREATE">
+      <point x="-86.33333333333331" y="-304.5" />
+      <point x="416.69664983057913" y="1376.3498988855904" />
+      <point x="0.0" y="1376.3498988855904" />
+      <point x="0.0" y="233.0" />
+      <point x="547.3089180096183" y="233.0" />
+      <point x="-84.33333333333337" y="106.0" />
+    </edge>
+    <edge source="src.Analisador" target="src.Comando" relationship="CREATE">
+      <point x="-64.5" y="-51.0" />
+      <point x="-172.1680143699524" y="706.0" />
+      <point x="-172.1680143699524" y="-207.61447442020594" />
+      <point x="134.5" y="-207.61447442020594" />
+      <point x="-52.0" y="73.0" />
+    </edge>
+    <edge source="src.Dica" target="src.Item" relationship="GENERALIZATION">
+      <point x="33.25" y="-39.5" />
+      <point x="208.52300772964264" y="2375.486847594248" />
+      <point x="2003.823328785513" y="2375.486847594248" />
+      <point x="2003.823328785513" y="-333.54712558679546" />
+      <point x="1273.7509202251472" y="-333.54712558679546" />
+      <point x="1273.7509202251472" y="-260.54712558679546" />
+      <point x="-68.75" y="73.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Chave" relationship="CREATE">
+      <point x="-86.33333333333331" y="-304.5" />
+      <point x="416.69664983057913" y="1451.4440275171985" />
+      <point x="1260.512714573256" y="1451.4440275171985" />
+      <point x="-93.0" y="39.5" />
+    </edge>
+    <edge source="src.Analisador" target="src.PalavrasComando" relationship="CREATE">
+      <point x="-64.5" y="-51.0" />
+      <point x="-351.1024251268153" y="706.0" />
+      <point x="-50.0" y="51.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Tela" relationship="TO_ONE">
+      <point x="0.0" y="-304.5" />
+      <point x="416.69664983057913" y="1291.1122260654479" />
+      <point x="416.69664983057913" y="995.24835484513" />
+      <point x="0.0" y="271.5" />
+    </edge>
+    <edge source="src.Tela" target="src.Jogo" relationship="DEPENDENCY">
+      <point x="68.0" y="271.5" />
+      <point x="460.41868372888416" y="995.24835484513" />
+      <point x="460.41868372888416" y="1291.1122260654479" />
+      <point x="86.33333333333331" y="-304.5" />
+    </edge>
+    <edge source="src.Comodo" target="src.Item" relationship="DEPENDENCY">
+      <point x="0.0" y="106.0" />
+      <point x="631.6422513429517" y="-300.54712558679546" />
+      <point x="1169.9442169010997" y="-300.54712558679546" />
+      <point x="-68.75" y="-73.0" />
+    </edge>
+    <edge source="src.Item" target="src.Comodo" relationship="DEPENDENCY">
+      <point x="-68.75" y="-73.0" />
+      <point x="1169.9442169010997" y="-387.6556245079421" />
+      <point x="631.6422513429517" y="-387.6556245079421" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Dica" relationship="CREATE">
+      <point x="-86.33333333333331" y="-304.5" />
+      <point x="416.69664983057913" y="2009.824346074552" />
+      <point x="142.02300772964264" y="2009.824346074552" />
+      <point x="-33.25" y="39.5" />
+    </edge>
+    <edge source="src.Jogo" target="src.Chave" relationship="TO_ONE">
+      <point x="0.0" y="-304.5" />
+      <point x="503.02998316391245" y="1539.134632761069" />
+      <point x="1446.512714573256" y="1539.134632761069" />
+      <point x="93.0" y="39.5" />
+    </edge>
+    <edge source="src.Jogo" target="src.Comando" relationship="DEPENDENCY">
+      <point x="86.33333333333331" y="-304.5" />
+      <point x="589.3633164972457" y="1337.6312981369135" />
+      <point x="124.0138468556554" y="1337.6312981369135" />
+      <point x="124.0138468556554" y="-194.54712558679546" />
+      <point x="52.0" y="73.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Tela" relationship="CREATE">
+      <point x="-86.33333333333331" y="-304.5" />
+      <point x="530.2838628140631" y="1291.1122260654479" />
+      <point x="530.2838628140631" y="995.24835484513" />
+      <point x="-68.0" y="271.5" />
+    </edge>
+    <edge source="src.Jogo" target="src.Comodo" relationship="TO_MANY">
+      <point x="0.0" y="-304.5" />
+      <point x="503.02998316391245" y="1409.927584871563" />
+      <point x="1113.1667312077793" y="1409.927584871563" />
+      <point x="1113.1667312077793" y="-237.46180223582087" />
+      <point x="737.3936174904156" y="-237.46180223582087" />
+      <point x="737.3936174904156" y="-194.54712558679546" />
+      <point x="84.33333333333326" y="106.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Comodo" relationship="TO_ONE">
+      <point x="0.0" y="-304.5" />
+      <point x="503.02998316391245" y="1327.2817864979995" />
+      <point x="662.044255253341" y="1327.2817864979995" />
+      <point x="662.044255253341" y="-205.00391549416975" />
+      <point x="715.9755846762849" y="-205.00391549416975" />
+      <point x="84.33333333333326" y="106.0" />
+    </edge>
+    <edge source="src.Comodo" target="src.Item" relationship="TO_ONE">
+      <point x="84.33333333333326" y="106.0" />
+      <point x="715.9755846762849" y="-349.4414502716197" />
+      <point x="1101.762768396915" y="-349.4414502716197" />
+      <point x="1101.762768396915" y="-406.54712558679546" />
+      <point x="68.74999999999997" y="-73.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Analisador" relationship="CREATE">
+      <point x="-86.33333333333331" y="-304.5" />
+      <point x="416.69664983057913" y="1532.610267250975" />
+      <point x="-354.95274824543117" y="1532.610267250975" />
+      <point x="-64.5" y="51.0" />
+    </edge>
+    <edge source="src.Jogo" target="src.Item" relationship="DEPENDENCY">
+      <point x="86.33333333333331" y="-304.5" />
+      <point x="589.3633164972457" y="1835.2692655221379" />
+      <point x="1556.092500958319" y="1835.2692655221379" />
+      <point x="1556.092500958319" y="-300.28293729885604" />
+      <point x="1277.2449999999337" y="-300.28293729885604" />
+      <point x="1277.2449999999337" y="-280.41503144282575" />
+      <point x="1307.4442169010997" y="-280.41503144282575" />
+      <point x="68.75" y="73.0" />
+    </edge>
+    <edge source="src.Dica" target="src.Comodo" relationship="DEPENDENCY">
+      <point x="-33.25" y="-39.5" />
+      <point x="142.02300772964264" y="2018.9173786244216" />
+      <point x="-473.0873575730554" y="2018.9173786244216" />
+      <point x="-473.0873575730554" y="-392.59334796265216" />
+      <point x="631.6422513429517" y="-392.59334796265216" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="src.Analisador" target="src.PalavrasComando" relationship="TO_ONE">
+      <point x="64.5" y="-51.0" />
+      <point x="-251.10242512681532" y="706.0" />
+      <point x="50.0" y="51.0" />
+    </edge>
+    <edge source="src.Chave" target="src.Comodo" relationship="DEPENDENCY">
+      <point x="93.0" y="-39.5" />
+      <point x="1446.512714573256" y="771.8614438873639" />
+      <point x="706.7966089917311" y="771.8614438873639" />
+      <point x="706.7966089917311" y="-194.54712558679546" />
+      <point x="0.0" y="106.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4791553871142391" showDependencies="true" x="737.8903919107768" y="1734.5000000000005" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
