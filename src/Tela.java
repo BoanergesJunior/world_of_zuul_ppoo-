@@ -1,8 +1,13 @@
+package src;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
+/**
+ * Classe responsavel por criar a tela do jogo
+ */
 public class Tela {
 
   int tentativas;
@@ -112,18 +117,20 @@ public class Tela {
     campoInferior.add(extra);
     campoInferior.add(entradaTexto);
 
+    /* Adicionando os componentes na tela */
     telaPrincipal.add(campoEsquerdoSuperior, BorderLayout.WEST);
     telaPrincipal.add(campoCentralSuperior, BorderLayout.CENTER);
     telaPrincipal.add(campoDireitoSuperior, BorderLayout.EAST);
     telaPrincipal.add(campoInferior, BorderLayout.SOUTH);
     telaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    // Definindo mapa
+    // Definindo imagem do mapa
     ImageIcon imgTituloJanela = new ImageIcon(getClass().getResource("mapa.png"));
     imgTituloJanela.setImage(imgTituloJanela.getImage().getScaledInstance(900, 600, Image.SCALE_DEFAULT));
     telaPrincipal.add(new JLabel(imgTituloJanela));
   }
 
+  /* Deixa a tela visivel */
   public void exibir() {
     telaPrincipal.setVisible(true);
   }
@@ -154,10 +161,6 @@ public class Tela {
 
   public void setDica2(String text) {
     this.dica2.setText(text);
-  }
-
-  public void setChave(int quant) {
-
   }
 
   public void travarEntrada() {

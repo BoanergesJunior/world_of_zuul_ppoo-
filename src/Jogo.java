@@ -1,3 +1,5 @@
+package src;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,6 +19,11 @@ import javax.swing.JLabel;
  * Essa classe principal cria e inicializa todas as outras: ela cria os
  * ambientes, cria o analisador e comeca o jogo. Ela tambem avalia e executa os
  * comandos que o analisador retorna.
+ * 
+ * @author Andre Medeiros - 201811266
+ * @author Boanerges Junior - 201821136
+ * @author Matheus Peternelli - 201820283
+ * @author Tiago Carlos - 201820272
  */
 
 public class Jogo {
@@ -32,7 +39,7 @@ public class Jogo {
     private int randomizar;
 
     /**
-     * Cria o jogo e incializa seu mapa interno.
+     * Cria o jogo e inicializa o mapa interno.
      */
     public Jogo() {
         Random r = new Random();
@@ -63,9 +70,13 @@ public class Jogo {
         interfaceGrafica.exibir();
     }
 
+    /**
+     * Metodo responsável por criar os comodos do jogo. Ajustar as saídas de cada
+     * comodo e Define o comodo inicial.
+     */
     private void criarComodos() {
         Comodo cozinha, banheiro, corredor, sala1, sala2, salaDiretoria, rh, recepcao, salaDescanco, salaReunioes,
-                entradaSaida, fora;
+                entradaSaida, saida;
 
         cozinha = new Comodo("Cozinha");
         banheiro = new Comodo("Banheiro");
@@ -78,7 +89,7 @@ public class Jogo {
         salaDescanco = new Comodo("Sala Descanco");
         salaReunioes = new Comodo("Sala Reunioes");
         entradaSaida = new Comodo("Entrada Saida");
-        fora = new Comodo("Fora");
+        saida = new Comodo("Saida");
 
         // adiciona no HashMap
         comodos.put(1, cozinha);
@@ -133,7 +144,7 @@ public class Jogo {
         salaDescanco.ajustarSaidas("Cozinha", cozinha);
         salaDescanco.ajustarSaidas("Recepcao", recepcao);
 
-        entradaSaida.ajustarSaidas("Fora", fora);
+        entradaSaida.ajustarSaidas("Saida", saida);
         comodoAtual = sala1;
 
         verificaItem();
@@ -192,12 +203,12 @@ public class Jogo {
             setExtra("Não há passagem!");
         } else {
             interfaceGrafica.limparEntrada();
-            if (proximoComodo.getNome().equals("Fora") && chave.getEncontrado()) {
+            if (proximoComodo.getNome().equals("Saida") && chave.getEncontrado()) {
                 interfaceGrafica.setAchouChave("<html><h2>Parabéns você achou a saída!!</h2></html>");
                 interfaceGrafica.travarEntrada();
                 interfaceGrafica.vitoria();
                 sair();
-            } else if (chave.getEncontrado() || !proximoComodo.getNome().equals("Fora")) {
+            } else if (chave.getEncontrado() || !proximoComodo.getNome().equals("Saida")) {
                 irDireto(proximoComodo);
                 imprimeLocalizacaoAtual();
             } else {
@@ -264,26 +275,45 @@ public class Jogo {
         }
     }
 
+    /**
+     * Imprime a descricao do local atual
+     */
     private void observar() {
         imprimeLocalizacaoAtual();
     }
 
+    /**
+     * Verifica se o jogador tem mais tentativas
+     * 
+     * @return
+     */
     private boolean temTentativas() {
         return tentativas > 0 ? true : false;
     }
 
+    /**
+     * Método que verifica se o jogador ainda tem tentativas restantes e define a
+     * randomização da chave a cada 5 tentativas
+     * 
+     * @param proximoComodo Comodo a ser acessado
+     */
     private void irDireto(Comodo proximoComodo) {
         if (temTentativas()) {
             comodoAtual = proximoComodo;
             tentativas--;
             randomizar++;
             if (randomizar == 5 && !chave.getEncontrado()) {
-                chave.randomizarChave(comodos.size(), chave, comodos);
+                chave.randomizarChave(chave, comodos);
                 gravar("output");
             }
         }
     }
 
+    /**
+     * Metodo que grava a posição da chave e das dicas no arquivo
+     * 
+     * @param nomeArquivo Nome do arquivo de saida
+     */
     private void gravar(String nomeArquivo) {
         try {
             FileWriter arquivo = new FileWriter(nomeArquivo);
@@ -310,14 +340,26 @@ public class Jogo {
         return tentativas;
     }
 
-    private void setSalaAtual(String sala) {
-        interfaceGrafica.setSalaAtual(sala);
+    /**
+     * 
+     * @param comodo seta na interface grafica o comodo atual
+     */
+    private void setSalaAtual(String comodo) {
+        interfaceGrafica.setSalaAtual(comodo);
     }
 
+    /**
+     * 
+     * @param saida seta na interface grafica quais a saidas do comodo atual
+     */
     private void setSaidas(String saida) {
         interfaceGrafica.setSaidas(saida);
     }
 
+    /**
+     * 
+     * @param extra seta na interface grafica saidas padroes
+     */
     private void setExtra(String extra) {
         interfaceGrafica.setExtra(extra);
     }

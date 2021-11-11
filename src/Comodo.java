@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class Comodo {
@@ -7,10 +9,8 @@ public class Comodo {
   private Item item;
 
   /**
-   * Cria um Comodo com a "descricao" passada. Inicialmente, ele nao tem saidas.
-   * "descricao" eh algo como "uma cozinha" ou " Create a room described
-   * "description". Initially, it has no exits. "description" is something like "a
-   * kitchen" or "um jardim aberto".
+   * Cria um Comodo com a descricao passada. Inicialmente, ele nao tem saidas.
+   * descricao e algo como "Cozinha".
    * 
    * @param nome O nome do comodo.
    */
@@ -25,8 +25,8 @@ public class Comodo {
    * Define as saidas do Comodo. Cada direcao ou leva a um outro Comodo ou eh null
    * (nenhuma saida para la).
    * 
-   * @param nomeComodo Direção para onde jogador deseja ir.
-   * @param comodo     desejado.
+   * @param nomeComodo Direção para onde jogador pode ir.
+   * @param comodo     Como que esta sendo ajustado.
    */
   public void ajustarSaidas(String nomeComodo, Comodo comodo) {
     saidas.put(nomeComodo, comodo);
@@ -39,6 +39,9 @@ public class Comodo {
     return descricao;
   }
 
+  /**
+   * Retorna todas as saidas do Comodo.
+   */
   public String getSaidas() {
     String direcoes = "";
     for (String d : saidas.keySet()) {
@@ -47,17 +50,18 @@ public class Comodo {
     return direcoes;
   }
 
+  /**
+   * retorna um objeto Comodo
+   * 
+   * @param nome
+   * @return
+   */
   public Comodo getComodo(String nome) {
-    return (Comodo) saidas.get(nome);
+    return saidas.get(nome);
   }
 
   public String getNome() {
     return nome;
-  }
-
-  public boolean porta() {
-    Random r = new Random();
-    return r.nextBoolean();
   }
 
   public final void setItem(Item i) {
