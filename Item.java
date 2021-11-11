@@ -21,10 +21,10 @@ public class Item {
     Random r = new Random();
     Integer sorteio = r.nextInt(comodos.size()) + 1;
 
-    Comodo c = (Comodo) comodos.get(sorteio);
+    Comodo c = comodos.get(sorteio);
     while (c.getItem() != null) {
       sorteio = r.nextInt(comodos.size() + 1);
-      c = (Comodo) comodos.get(sorteio);
+      c = comodos.get(sorteio);
     }
 
     c.setItem(this);

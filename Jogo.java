@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,11 +15,8 @@ import javax.swing.JLabel;
  * "jogar".
  * 
  * Essa classe principal cria e inicializa todas as outras: ela cria os
- * ambientes, cria o analisador e comeca o jogo. Ela tambeme avalia e executa os
+ * ambientes, cria o analisador e comeca o jogo. Ela tambem avalia e executa os
  * comandos que o analisador retorna.
- * 
- * @author Michael Kölling and David J. Barnes (traduzido por Julio Cesar Alves)
- * @version 2011.07.31 (2016.02.01)
  */
 
 public class Jogo {
@@ -30,15 +29,16 @@ public class Jogo {
     private Dica dica1;
     private Dica dica2;
     private JLabel quantidadeTentativas;
+    private int randomizar;
 
     /**
      * Cria o jogo e incializa seu mapa interno.
      */
     public Jogo() {
         Random r = new Random();
+        randomizar = 0;
         analisador = new Analisador();
-        tentativas = r.nextInt(24);
-        if (tentativas < 5) { tentativas = 5; }
+        tentativas = r.nextInt(20) + 5;
         comodos = new HashMap<Integer, Comodo>();
         chave = new Chave();
         dica1 = new Dica("A chave não está no(a)");
@@ -55,11 +55,11 @@ public class Jogo {
         dica2.setLocal(comodos);
         dica2.setDescricao(comodos);
 
-        // Informações da localização da chave e das dicas
         System.out.println("Chave: " + comodos.get(chave.getLocal()).getNome());
         System.out.println("Dica 1: " + comodos.get(dica1.getLocal()).getNome());
         System.out.println("Dica 2: " + comodos.get(dica2.getLocal()).getNome());
 
+        gravar("output");
         interfaceGrafica.exibir();
     }
 
@@ -163,7 +163,6 @@ public class Jogo {
         interfaceGrafica.travarEntrada();
     }
 
-
     /*
      * Método que imprime/apresenta as saídas disponíveis do lugar em que se
      * encontra o jogador
@@ -201,15 +200,13 @@ public class Jogo {
             } else if (chave.getEncontrado() || !proximoComodo.getNome().equals("Fora")) {
                 irDireto(proximoComodo);
                 imprimeLocalizacaoAtual();
-            }
-            else {
+            } else {
                 --tentativas;
                 setExtra("Voce não pode sair");
                 imprimeLocalizacaoAtual();
             }
         }
 
-        
         verificaItem();
     }
 
@@ -244,7 +241,7 @@ public class Jogo {
     // Implementacoes dos comandos do usuario
 
     /**
-     * Printe informacoes de ajuda. Aqui nos imprimimos algo bobo e enigmatico e a
+     * Print informacoes de ajuda. Aqui nos imprimimos algo bobo e enigmatico e a
      * lista de palavras de comando
      */
     private void imprimirAjuda() {
@@ -254,8 +251,8 @@ public class Jogo {
     private void verificaItem() {
         if (comodoAtual.getItem() != null && !comodoAtual.getItem().getEncontrado()) {
             if (comodoAtual.getItem() instanceof Chave) {
-                interfaceGrafica.setAchouChave("<html><h2>Parabens voce achou uma chave, agora vá até a saída</h2></html>");
-                interfaceGrafica.setChave(chave.getVidaUtil());
+                interfaceGrafica
+                        .setAchouChave("<html><h2>Parabens voce achou uma chave, agora vá até a saída</h2></html>");
             } else if (comodoAtual.getItem() instanceof Dica) {
                 if (comodoAtual.getItem() == dica1) {
                     interfaceGrafica.setDica1(dica1.getDescricao());
@@ -279,8 +276,24 @@ public class Jogo {
         if (temTentativas()) {
             comodoAtual = proximoComodo;
             tentativas--;
+            randomizar++;
+            if (randomizar == 5 && !chave.getEncontrado()) {
+                chave.randomizarChave(comodos.size(), chave, comodos);
+                gravar("output");
+            }
         }
+    }
 
+    private void gravar(String nomeArquivo) {
+        try {
+            FileWriter arquivo = new FileWriter(nomeArquivo);
+            arquivo.write("Posição da Chave: " + comodos.get(chave.getLocal()).getNome() + "\n" + "Posicão da Dica1: "
+                    + comodos.get(dica1.getLocal()).getNome() + "\n" + "Posição da Dica2: "
+                    + comodos.get(dica2.getLocal()).getNome());
+            arquivo.close();
+        } catch (IOException e) {
+            System.out.println("Falha ao Salvar" + nomeArquivo);
+        }
     }
 
     /**
