@@ -2,6 +2,10 @@ package src;
 
 import java.util.*;
 
+/**
+ * Classe responsavel por criar um comodo do mapa, ajusta as saidas setar os
+ * atributos
+ */
 public class Comodo {
   public String nome;
   public String descricao;

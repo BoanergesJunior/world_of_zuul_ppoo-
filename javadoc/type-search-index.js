@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"src","l":"Analisador"},{"p":"src","l":"Chave"},{"p":"src","l":"Comando"},{"p":"src","l":"Comodo"},{"p":"src","l":"Dica"},{"p":"src","l":"Item"},{"p":"src","l":"Jogo"},{"p":"src","l":"PalavrasComando"},{"p":"src","l":"Programa"},{"p":"src","l":"Tela"}];updateSearchResults();
